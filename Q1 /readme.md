@@ -47,7 +47,7 @@ public class LeadUpdateWeedlyScheduler implements Schedulable {
 ```
 ## Test Class
 ```jsx
-   @isTest
+@isTest
 public class TestClassBatchAndSchedule {
     
 @TestSetup  static void TestLead(){
@@ -59,38 +59,32 @@ public class TestClassBatchAndSchedule {
             }else{
                 listLead.add(New Lead (LastName='Test'+i,Company='tibiler'+i,Status='Working - Contacted'));
             }
-            
-            
         } 
       insert listLead;
-    for(lead ld:listLead){
-      Test.SetCreatedDate(ld.id,Date.today()-7); //  it set CreatedDate
-         }
-}
-        @Istest
-        static void TestBatchClass(){
+           for(lead ld:listLead){
+             Test.SetCreatedDate(ld.id,Date.today()-7); //  it set CreatedDate
+                }
+       }
+ @Istest static void TestBatchClass(){
              
-            test.StartTest();
-            LeadBatch BatchTest=new LeadBatch();
-            Database.executeBatch(BatchTest);
-            Test.StopTest();
-            
-     List<Lead> updatedLeads = [SELECT Id, Status FROM Lead where Status='Closed Lost'AND CreatedDate = LAST_WEEK];
-    
-         System.assertEquals(2,updatedLeads.size());   //test Batch Class
+               test.StartTest();
+               LeadBatch BatchTest=new LeadBatch();
+               Database.executeBatch(BatchTest);
+               Test.StopTest();
+               
+         List<Lead> updatedLeads = [SELECT Id, Status FROM Lead where Status='Closed Lost'AND CreatedDate = LAST_WEEK];
+             System.assertEquals(2,updatedLeads.size());   //test Batch Class
 }
-    
-    @IsTest
-    Static void ScheduleClass(){
+    @IsTest Static void ScheduleClass(){
         
-            Test.StartTest();
-            String Times='0 0 22 ? * Sun *';
-            system.schedule('Weekly update lead',times, new LeadUpdateWeedlyScheduler());
-            Test.stopTest();
+             Test.StartTest();
+             String Times='0 0 22 ? * Sun *';
+             system.schedule('Weekly update lead',times, new LeadUpdateWeedlyScheduler());
+             Test.stopTest();
+
             for(Lead Lead:[Select Status from lead where status='Closed Lost']){
                     system.assertEquals('Closed Lost',lead.Status);    //test Schedule Class
             }
          }
-       
     }
 ```
