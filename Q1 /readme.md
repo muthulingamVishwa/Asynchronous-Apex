@@ -15,16 +15,17 @@ public class LeadBatch Implements Database.Batchable<sobject>{
                                         Status from lead
                                         where Status='Open - Not Contacted'
                                         AND createdDate =Last_Week]);
-    } 
-    public void execute(Database.BatchableContext bc,list<Lead> listLeads){ // Process Record
-              for(lead leads:listLeads){
-                  leads.Status='Closed Lost';           
-              }
-        update listLeads;     
     }
-public void Finish(Database.BatchableContext bc){
-     System.debug('update record Completed');
-    }   
+ 
+    public void execute(Database.BatchableContext bc,list<Lead> listLeads){ // Process Record
+                 for(lead leads:listLeads){
+                     leads.Status='Closed Lost';           
+                 }
+                update listLeads;     
+     }
+    public void Finish(Database.BatchableContext bc){
+         System.debug('update record Completed');
+   }   
 }
 ```
 ### Scheduled Class
