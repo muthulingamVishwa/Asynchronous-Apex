@@ -16,7 +16,7 @@ public class LeadBatch Implements Database.Batchable<sobject>{
                                         where Status='Open - Not Contacted'
                                         AND createdDate =Last_Week]);
     } 
-    public void execute(Database.BatchableContext bc,list<Lead> listLeads){  // Preoss Record
+    public void execute(Database.BatchableContext bc,list<Lead> listLeads){ // Process Record
               for(lead leads:listLeads){
                   leads.Status='Closed Lost';           
               }
