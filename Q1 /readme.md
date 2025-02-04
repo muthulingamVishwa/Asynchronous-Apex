@@ -2,9 +2,13 @@
 
 ### Batch  Class
 ```jsx
+/**
+ * This batch job processes Lead records in Salesforce.
+ * It updates the status of leads created last week and marked as 'Open - Not Contacted' to 'Closed Lost'.
+ * The job follows the standard Batchable interface with start, execute, and finish methods.
+ */
 public class LeadBatch Implements Database.Batchable<sobject>{
  
-    
     Public Database.QueryLocator Start (Database.BatchableContext bc){ //get Reorod 
         return Database.getQueryLocator([Select id,
                                          Name,
