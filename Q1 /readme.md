@@ -51,7 +51,7 @@ public class LeadUpdateWeedlyScheduler implements Schedulable {
 @isTest
 public class TestClassBatchAndSchedule {
     
-@TestSetup  static void TestLead(){
+ @TestSetup  static void TestLead(){
        list<Lead> listLead=new list<lead>();
         
         for(integer i=0;i<5;i++){
@@ -65,7 +65,7 @@ public class TestClassBatchAndSchedule {
            for(lead ld:listLead){
              Test.SetCreatedDate(ld.id,Date.today()-7); //  it set CreatedDate
                 }
-       }
+ }
  @Istest static void TestBatchClass(){
              
                test.StartTest();
@@ -75,8 +75,8 @@ public class TestClassBatchAndSchedule {
                
          List<Lead> updatedLeads = [SELECT Id, Status FROM Lead where Status='Closed Lost'AND CreatedDate = LAST_WEEK];
              System.assertEquals(2,updatedLeads.size());   //test Batch Class
-}
-    @IsTest Static void ScheduleClass(){
+ }
+ @IsTest Static void ScheduleClass(){
         
              Test.StartTest();
              String Times='0 0 22 ? * Sun *';
@@ -86,6 +86,6 @@ public class TestClassBatchAndSchedule {
             for(Lead Lead:[Select Status from lead where status='Closed Lost']){
                     system.assertEquals('Closed Lost',lead.Status);    //test Schedule Class
             }
-         }
-    }
+ }
+}
 ```
